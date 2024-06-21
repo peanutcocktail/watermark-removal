@@ -30,26 +30,26 @@ if __name__ == "__main__":
     model = InpaintCAModel()
     image = Image.open(args.image)
     input_image = preprocess_image(image, args.watermark_type)
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
 
-    sess_config = tf.ConfigProto()
+    sess_config = tf.compat.v1.ConfigProto()
     sess_config.gpu_options.allow_growth = True
     if (input_image.shape != (0,)):
-        with tf.Session(config=sess_config) as sess:
+        with tf.compat.v1.Session(config=sess_config) as sess:
             input_image = tf.constant(input_image, dtype=tf.float32)
             output = model.build_server_graph(FLAGS, input_image)
             output = (output + 1.) * 127.5
             output = tf.reverse(output, [-1])
             output = tf.saturate_cast(output, tf.uint8)
             # load pretrained model
-            vars_list = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES)
+            vars_list = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.GLOBAL_VARIABLES)
             assign_ops = []
             for var in vars_list:
                 vname = var.name
                 from_name = vname
-                var_value = tf.contrib.framework.load_variable(
+                var_value = tf.train.load_variable(
                     args.checkpoint_dir, from_name)
-                assign_ops.append(tf.assign(var, var_value))
+                assign_ops.append(tf.compat.v1.assign(var, var_value))
             sess.run(assign_ops)
             print('Model loaded.')
             result = sess.run(output)
