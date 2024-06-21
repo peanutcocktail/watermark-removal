@@ -4,7 +4,7 @@ import math
 import cv2
 import numpy as np
 import tensorflow as tf
-from tensorflow.contrib.framework.python.ops import add_arg_scope
+from tf_slim import arg_scope
 from PIL import Image, ImageDraw
 
 from neuralgym.ops.layers import resize

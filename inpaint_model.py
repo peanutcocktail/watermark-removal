@@ -4,7 +4,7 @@ import logging
 import cv2
 import neuralgym as ng
 import tensorflow as tf
-from tensorflow.contrib.framework.python.ops import arg_scope
+from tf_slim import arg_scope
 
 from neuralgym.models import Model
 from neuralgym.ops.summary_ops import scalar_summary, images_summary
