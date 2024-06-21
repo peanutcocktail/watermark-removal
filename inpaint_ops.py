@@ -18,7 +18,7 @@ logger = logging.getLogger()
 np.random.seed(2018)
 
 
-@add_arg_scope
+#@add_arg_scope
 def gen_conv(x, cnum, ksize, stride=1, rate=1, name='conv',
              padding='SAME', activation=tf.nn.elu, training=True):
     """Define conv for generator.
@@ -56,7 +56,7 @@ def gen_conv(x, cnum, ksize, stride=1, rate=1, name='conv',
     return x
 
 
-@add_arg_scope
+#@add_arg_scope
 def gen_deconv(x, cnum, name='upsample', padding='SAME', training=True):
     """Define deconv for generator.
     The deconv is defined to be a x2 resize_nearest_neighbor operation with
@@ -80,7 +80,7 @@ def gen_deconv(x, cnum, name='upsample', padding='SAME', training=True):
     return x
 
 
-@add_arg_scope
+#@add_arg_scope
 def dis_conv(x, cnum, ksize=5, stride=2, name='conv', training=True):
     """Define conv for discriminator.
     Activation is set to leaky_relu.
